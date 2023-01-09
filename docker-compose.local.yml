@@ -1,0 +1,48 @@
+version: '3.1'
+networks:
+  app-net:
+    driver: bridge
+services: 
+  chat:
+    container_name: chat_app
+    build:
+      context: .
+      dockerfile: ./src/Docker/Dockerfile.dev             
+    ports:
+      - '3000:3000'
+    environment:
+      - DB_URL=postgres://postgres:postgres@database:5432/chats 
+      - DB_TYPE=postgres 
+    networks:
+      - app-net 
+    volumes:
+    - .:/usr/src/app
+  database:
+    container_name: chatDB
+    image: postgres
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust 
+      - POSTGRES_PASSWORD=password 
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=chats
+    ports :
+      - "5432:5432" 
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data 
+    networks:
+      - app-net   
+  dbadmin:
+    image: dpage/pgadmin4
+    container_name: PGAdmin    
+    ports:
+      - 5050:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin4 
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin   
+    networks:
+      - app-net         
+volumes:
+  local_pgdata:
+  pgadmin-data: 

@@ -1,0 +1,21 @@
+{
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "@db/database/(.*)": "<rootDir>/../libs/database/src/$1",
+    "@db/database": "<rootDir>/../libs/database/src",
+    "@common/common/(.*)": "<rootDir>/../libs/common/src/$1",
+    "@common/common": "<rootDir>/../libs/common/src",
+    "@abstract/abstract/(.*)": "<rootDir>/../libs/abstract/src/$1",
+    "@abstract/abstract": "<rootDir>/../libs/abstract/src"
+  }
+}
